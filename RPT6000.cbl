@@ -27,6 +27,7 @@
            LABEL RECORDS ARE STANDARD
            RECORD CONTAINS 130 CHARACTERS
            BLOCK CONTAINS 130 CHARACTERS.
+
        01  CUSTOMER-MASTER-RECORD.
            05 CM-BRANCH-NUMBER       PIC 9(2).
            05 CM-SALESREP-NUMBER     PIC 9(2).
@@ -79,18 +80,18 @@
            05 FILLER                 PIC X(9).
 
        01  HEADING-LINE-1.
-           05 FILLER                 PIC X(7)  VALUE "DATE:  ".
-           05 HL1-MONTH              PIC 9(2).
-           05 FILLER                 PIC X     VALUE "/".
-           05 HL1-DAY                PIC 9(2).
-           05 FILLER                 PIC X     VALUE "/".
-           05 HL1-YEAR               PIC 9(4).
-           05 FILLER                 PIC X(16) VALUE SPACE.
-           05 FILLER               PIC X(26) VALUE "YEAR-TO-DATE SALES".
-           05 FILLER                 PIC X(6)  VALUE "REPORT".
-           05 FILLER                 PIC X(22) VALUE SPACE.
-           05 FILLER                 PIC X(7)  VALUE "PAGE:  ".
-           05 HL1-PAGE               PIC ZZZ9.
+           05 FILLER          PIC X(7)  VALUE "DATE:  ".
+           05 HL1-MONTH       PIC 9(2).
+           05 FILLER          PIC X(1)  VALUE "/".
+           05 HL1-DAY         PIC 9(2).
+           05 FILLER          PIC X(1)  VALUE "/".
+           05 HL1-YEAR        PIC 9(4).
+           05 FILLER          PIC X(26) VALUE SPACE.
+           05 FILLER          PIC X(20) VALUE "YEAR-TO-DATE SALES R".
+           05 FILLER          PIC X(31) VALUE "EPORT".
+           05 FILLER          PIC X(6)  VALUE "PAGE: ".
+           05 HL1-PAGE-NUMBER PIC ZZZ9.
+           05 FILLER          PIC X(26) VALUE SPACE.
 
        01  HEADING-LINE-2.
            05 FILLER                 PIC X(7)  VALUE "TIME:  ".
