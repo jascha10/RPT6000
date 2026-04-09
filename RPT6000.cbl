@@ -152,18 +152,19 @@
                                      PIC X(6).
 
        01  BRANCH-TOTAL-LINE.
-           05 FILLER                 PIC X(8) VALUE SPACE.
+           05 FILLER                 PIC X(23) VALUE SPACE.
            05 FILLER                 PIC X(13) VALUE "BRANCH TOTAL".
-           05 FILLER                 PIC X(8) VALUE SPACE.
+           05 FILLER                 PIC X(2) VALUE SPACE.
            05 BTL-SALES-THIS-YTD     PIC $$$,$$$9.99-.
-           05 FILLER                 PIC X(3) VALUE SPACE.
+           05 FILLER                 PIC X(2) VALUE SPACE.
            05 BTL-SALES-LAST-YTD     PIC $$$,$$$9.99-.
-           05 FILLER                 PIC X(3) VALUE SPACE.
+           05 FILLER                 PIC X(2) VALUE SPACE.
            05 BTL-CHANGE-AMOUNT      PIC $$$,$$$9.99-.
            05 FILLER                 PIC X(2) VALUE SPACE.
            05 BTL-CHANGE-PERCENT     PIC +++9.9.
            05 BTL-CHANGE-PERCENT-R   REDEFINES BTL-CHANGE-PERCENT
                                      PIC X(6).
+           05 FILLER                 PIC X(47) VALUE " *".
 
        01  GRAND-TOTAL-LINE.
            05 FILLER                 PIC X(5) VALUE SPACE.
