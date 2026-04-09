@@ -63,11 +63,6 @@
            05 WS-CURRENT-BRANCH      PIC 99 VALUE ZERO.
            05 WS-PREVIOUS-BRANCH     PIC 99 VALUE ZERO.
 
-       01  BRANCH-TOTALS             PACKED-DECIMAL.
-           05 BT-THIS-YTD            PIC S9(9)V99 VALUE ZERO.
-           05 BT-LAST-YTD            PIC S9(9)V99 VALUE ZERO.
-           05 BT-CHANGE              PIC S9(9)V99 VALUE ZERO.
-
        01  PRINT-FIELDS PACKED-DECIMAL.
            05 PAGE-COUNT             PIC S9(3) VALUE ZERO.
            05 LINES-ON-PAGE          PIC S9(3) VALUE +55.
@@ -80,8 +75,7 @@
            05 GRAND-TOTAL-CHANGE     PIC S9(9)V99 VALUE ZERO.
 
        01  CALC-FIELDS               PACKED-DECIMAL.
-           05 WS-CHANGE-AMOUNT       PIC S9(9)V99 VALUE ZERO.
-           05 WS-CHANGE-PERCENT      PIC S9(5)V9(1) VALUE ZERO.
+           05 CHANGE-AMOUNT          PIC S9(7)V99 VALUE ZERO.
 
        01  CURRENT-DATE-AND-TIME.
            05 CD-YEAR                PIC 9(4).
