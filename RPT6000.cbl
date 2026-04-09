@@ -105,10 +105,11 @@
        01  HEADING-LINE-2.
            05 FILLER                 PIC X(7)  VALUE "TIME:  ".
            05 HL2-HOURS              PIC 9(2).
-           05 FILLER                 PIC X     VALUE ":".
+           05 FILLER                 PIC X(1)  VALUE ":".
            05 HL2-MINUTES            PIC 9(2).
-           05 FILLER                 PIC X(68) VALUE SPACE.
+           05 FILLER                 PIC X(82) VALUE SPACE.
            05 FILLER                 PIC X(7)  VALUE "RPT6000".
+           05 FILLER                 PIC X(29) VALUE SPACE.
 
        01  HEADING-LINE-3.
            05 FILLER PIC X(6)  VALUE "BRANCH".
