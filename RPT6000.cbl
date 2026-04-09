@@ -148,7 +148,9 @@
            05 FILLER                 PIC X(4) VALUE SPACE.
            05 CL-CHANGE              PIC Z,ZZZ,ZZ9.99-.
            05 FILLER                 PIC X(4) VALUE SPACE.
-           05 CL-PERCENT             PIC ZZZ9.9-.
+           05 CL-CHANGE-PERCENT      PIC +++9.9.
+           05 CL-CHANGE-PERCENT-R    REDEFINES CL-CHANGE-PERCENT
+                                     PIC X(6).
 
        01  BRANCH-TOTAL-LINE.
            05 FILLER                 PIC X(8) VALUE SPACE.
