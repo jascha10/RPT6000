@@ -141,7 +141,7 @@
            05 FILLER                 PIC X(2) VALUE SPACE.
            05 CL-CUSTOMER-NAME       PIC X(20).
            05 FILLER                 PIC X(3) VALUE SPACE.
-           05 CL-SALES-THIS-TYD      PIC Z,ZZZ,ZZ9.99-.
+           05 CL-SALES-THIS-YTD      PIC Z,ZZZ,ZZ9.99-.
            05 FILLER                 PIC X(4) VALUE SPACE.
            05 CL-SALES-LAST-YTD      PIC Z,ZZZ,ZZ9.99-.
            05 FILLER                 PIC X(4) VALUE SPACE.
@@ -321,13 +321,31 @@
                 MOVE "  N/A " TO CL-CHANGE-PERCENT-R
            ELSE
                 COMPUTE CL-CHANGE-PERCENT ROUNDED =
-                    CHANGE-AMOUNT * 100 / CM-SALES-LAST-TYD
+                    CHANGE-AMOUNT * 100 / CM-SALES-LAST-YTD
                     ON SIZE ERROR
                         MOVE "OVRFLW" TO CL-CHANGE-PERCENT-R.
            MOVE CUSTOMER-LINE TO PRINT-AREA.
            PERFORM 350-WRITE-REPORT-LINE.
            MOVE 1 TO SPACE-CONTROL.
-           ADD CM-SALES-THIS-YTD TO BRANCH-TOTAL-THIS-TYD.
+           ADD CM-SALES-THIS-YTD TO BRANCH-TOTAL-THIS-YTD.
+
+
+       360-PRINT-BRANCH-LINE.
+
+
+           IF BRANCH-TOTAL-LAST-YTD = ZERO
+                MOVE "  N/A " TO BTL-CHANGE-PERCENT-READ
+           ELSE
+                COMPUTER BTL-CHANGE-PERCENT ROUNDED = 
+                    CHANGE-AMOUNT * 100 / BRANCH-TOTAL-LAST-YTD
+                    ON SIZE ERROR 
+                    MOVE "OVRFLW" TO BTL-CHANGE-PERCENT-READ
+
+
+           ADD BRANCH-TOTAL-THIS-YTD TO GRAND-TOTAL-THIS-YTDD.
+           ADD BRANCH-TOTAL-LAST-YTD TO GRAND-TOTAL-LAST-YTD.
+           INITIALIZE BRANCH-TOTAL-THIS-YTD
+                    BRANCH-TOTAL-LAST-YTD.
 
        400-PRINT-BRANCH-TOTAL.
            MOVE SPACES TO PRINT-AREA
