@@ -170,13 +170,15 @@
            05 FILLER                 PIC X(5) VALUE SPACE.
            05 FILLER                 PIC X(12) VALUE "GRAND TOTAL".
            05 FILLER                 PIC X(10) VALUE SPACE.
-           05 GT-THIS                PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 GT-LAST                PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 GT-CHANGE              PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 GT-PERCENT             PIC ZZZ9.9-.
+           05 GTL-SALES-THIS-YTD     PIC $,$$$,$$$9.99-.
+           05 FILLER                 PIC X(1) VALUE SPACE.
+           05 GTL-SALES-LAST-YTD     PIC $,$$$,$$$9.99-.
+           05 FILLER                 PIC X(1) VALUE SPACE.
+           05 GTL-CHANGE-AMOUNT      PIC $,$$$,$$$9.99-.
+           05 FILLER                 PIC X(2) VALUE SPACE.
+           05 GTL-CHANGE-PERCENT     PIC +++9.9.
+           05 GTL-CHANGE-PERCENT-R   REDEFINES GTL-CHANGE-PERCENT
+                                     PIC X(6).
 
        PROCEDURE DIVISION.
 
