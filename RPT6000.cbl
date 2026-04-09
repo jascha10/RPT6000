@@ -112,36 +112,37 @@
            05 FILLER                 PIC X(29) VALUE SPACE.
 
        01  HEADING-LINE-3.
-           05 FILLER PIC X(6)  VALUE "BRANCH".
-           05 FILLER PIC X     VALUE SPACE.
-           05 FILLER PIC X(5)  VALUE "SALES".
-           05 FILLER PIC X     VALUE SPACE.
-           05 FILLER PIC X(4)  VALUE "CUST".
-           05 FILLER PIC X(28) VALUE SPACE.
-           05 FILLER PIC X(10) VALUE "SALES".
-           05 FILLER PIC X(4)  VALUE SPACE.
-           05 FILLER PIC X(10) VALUE "SALES".
-           05 FILLER PIC X(4)  VALUE SPACE.
-           05 FILLER PIC X(6)  VALUE "CHANGE".
-           05 FILLER PIC X(4)  VALUE SPACE.
-           05 FILLER PIC X(7)  VALUE "CHANGE".
+           05  FILLER           PIC X(54)  VALUE SPACES.
+           05  FILLER           PIC X(19)  VALUE "SALES         SALES".
+           05  FILLER           PIC X(8)   VALUE SPACES.
+           05  FILLER           PIC X(17)  VALUE "CHANGE     CHANGE".
+           05  FILLER           PIC X(32)  VALUE SPACE.
 
        01  HEADING-LINE-4.
-           05 FILLER PIC X(3)  VALUE "NUM".
-           05 FILLER PIC X(5)  VALUE SPACE.
-           05 FILLER PIC X(3)  VALUE "REP".
-           05 FILLER PIC X(3)  VALUE SPACE.
-           05 FILLER PIC X(3)  VALUE "NUM".
-           05 FILLER PIC X(2)  VALUE SPACE.
-           05 FILLER PIC X(20) VALUE "CUSTOMER NAME".
-           05 FILLER PIC X(3)  VALUE SPACE.
-           05 FILLER PIC X(10) VALUE "THIS YTD".
-           05 FILLER PIC X(4)  VALUE SPACE.
-           05 FILLER PIC X(10) VALUE "LAST YTD".
-           05 FILLER PIC X(4)  VALUE SPACE.
-           05 FILLER PIC X(6)  VALUE "AMOUNT".
-           05 FILLER PIC X(4)  VALUE SPACE.
-           05 FILLER PIC X(7)  VALUE "PERCENT".
+           05  FILLER         PIC X(17)  VALUE "BRANCH   SALESREP".
+           05  FILLER         PIC X(13)  VALUE SPACES.
+           05  FILLER         PIC X(8)   VALUE "CUSTOMER".
+           05  FILLER         PIC X(14)  VALUE SPACES.
+           05  FILLER         PIC X(22)  VALUE "THIS YTD      LAST YTD".
+           05  FILLER         PIC X(7)   VALUE SPACES.
+           05  FILLER         PIC X(18)  VALUE "AMOUNT     PERCENT".
+           05  FILLER         PIC X(31)  VALUE SPACE.
+
+       01  HEADING-LINE-5.
+           05  FILLER           PIC X(6)   VALUE ALL '-'.
+           05  FILLER           PIC X(1)   VALUE SPACE.
+           05  FILLER           PIC X(13)  VALUE ALL '-'.
+           05  FILLER           PIC X(1)   VALUE SPACE.
+           05  FILLER           PIC X(26)   VALUE ALL '-'.
+           05  FILLER           PIC X(3)   VALUE SPACE.
+           05  FILLER           PIC X(11)  VALUE ALL '-'.
+           05  FILLER           PIC X(3)   VALUE SPACE.
+           05  FILLER           PIC X(11)  VALUE ALL '-'.
+           05  FILLER           PIC X(4)   VALUE SPACE.
+           05  FILLER           PIC X(11)  VALUE ALL '-'.
+           05  FILLER           PIC X(2)   VALUE SPACE.
+           05  FILLER           PIC x(7)   VALUE ALL '-'.
+           05  FILLER           PIC X(31)  VALUE SPACE.
 
        01  CUSTOMER-LINE.
            05 FILLER                 PIC X(2) VALUE SPACE.
