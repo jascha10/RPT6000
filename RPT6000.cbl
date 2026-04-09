@@ -70,6 +70,19 @@
            05 WS-CHANGE-AMOUNT       PIC S9(9)V99 VALUE ZERO.
            05 WS-CHANGE-PERCENT      PIC S9(5)V9(1) VALUE ZERO.
 
+       01  SALESREP-TABLE.
+           05  FILLER    PIC X(12) VALUE "10UNKNOWN   ".
+           05  FILLER    PIC X(12) VALUE "11TSMITH    ".
+           05  FILLER    PIC X(12) VALUE "12AJONES    ".
+           05  FILLER    PIC X(12) VALUE "14KBAKER    ".
+           05  FILLER    PIC X(12) VALUE "17STRACKER  ".
+           05  FILLER    PIC X(12) VALUE "21FFRANKLIN ".
+       01  SALESREP-TABLE-R REDEFINES SALESREP-TABLE.
+           05  SR-ENTRY OCCURS 6 TIMES
+                        INDEXED BY SR-INDEX.
+               10  SR-NUMBER   PIC X(2).
+               10  SR-NAME     PIC X(10).
+
        01  CURRENT-DATE-AND-TIME.
            05 CD-YEAR                PIC 9(4).
            05 CD-MONTH               PIC 9(2).
