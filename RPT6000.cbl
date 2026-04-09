@@ -36,6 +36,11 @@
            05 CM-SALES-THIS-YTD      PIC S9(5)V99.
            05 CM-SALES-LAST-YTD      PIC S9(5)V99.
            05 FILLER                 PIC X(87).
+        
+       01  WS-SALESREP-RECORD.
+           05 SM-SALESREP-NUMBER     PIC 9(2).
+           05 SM-SALESREP-NAME       PIC X(10).
+           05 FILLER                 PIC X(118).
 
        FD  O_RPT6000
            RECORDING MODE IS F
@@ -309,7 +314,7 @@
            WRITE PRINT-AREA.
 
        320-PRINT-CUSTOMER-LINE.
-           
+
            IF LINE-COUNT > LINES-ON-PAGE
                 PERFORM 330-PRINT-HEADING-LINES.
 
@@ -336,9 +341,9 @@
            IF BRANCH-TOTAL-LAST-YTD = ZERO
                 MOVE "  N/A " TO BTL-CHANGE-PERCENT-READ
            ELSE
-                COMPUTER BTL-CHANGE-PERCENT ROUNDED = 
+                COMPUTER BTL-CHANGE-PERCENT ROUNDED =
                     CHANGE-AMOUNT * 100 / BRANCH-TOTAL-LAST-YTD
-                    ON SIZE ERROR 
+                    ON SIZE ERROR
                     MOVE "OVRFLW" TO BTL-CHANGE-PERCENT-READ
 
 
