@@ -68,10 +68,11 @@
            05 BT-LAST-YTD            PIC S9(9)V99 VALUE ZERO.
            05 BT-CHANGE              PIC S9(9)V99 VALUE ZERO.
 
-       01  PAGE-INFO.
-           05 PAGE-COUNT             PIC 9(3) VALUE ZERO.
-           05 LINE-COUNT             PIC 9(3) VALUE 99.
-           05 LINES-ON-PAGE          PIC 9(3) VALUE 55.
+       01  PRINT-FIELDS PACKED-DECIMAL.
+           05 PAGE-COUNT             PIC S9(3) VALUE ZERO.
+           05 LINES-ON-PAGE          PIC S9(3) VALUE +55.
+           05 LINE-COUNT             PIC S9(3) VALUE +99.
+           05 SPACE-CONTROL          PIC 9 VALUE 1.
 
        01  TOTAL-FIELDS              PACKED-DECIMAL.
            05 GRAND-TOTAL-THIS-YTD   PIC S9(9)V99 VALUE ZERO.
