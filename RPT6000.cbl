@@ -27,6 +27,7 @@
            LABEL RECORDS ARE STANDARD
            RECORD CONTAINS 130 CHARACTERS
            BLOCK CONTAINS 130 CHARACTERS.
+
        01  CUSTOMER-MASTER-RECORD.
            05 CM-BRANCH-NUMBER       PIC 9(2).
            05 CM-SALESREP-NUMBER     PIC 9(2).
@@ -51,7 +52,7 @@
            05 WS-CURRENT-BRANCH      PIC 99 VALUE ZERO.
            05 WS-PREVIOUS-BRANCH     PIC 99 VALUE ZERO.
 
-       01  BRANCH-TOTALS.
+       01  BRANCH-TOTALS USAGE IS PACKED-DECIMAL.
            05 BT-THIS-YTD            PIC S9(9)V99 VALUE ZERO.
            05 BT-LAST-YTD            PIC S9(9)V99 VALUE ZERO.
            05 BT-CHANGE              PIC S9(9)V99 VALUE ZERO.
@@ -61,27 +62,14 @@
            05 LINE-COUNT             PIC 9(3) VALUE 99.
            05 LINES-ON-PAGE          PIC 9(3) VALUE 55.
 
-       01  TOTAL-FIELDS.
+       01  TOTAL-FIELDS USAGE IS PACKED-DECIMAL.
            05 GRAND-TOTAL-THIS-YTD   PIC S9(9)V99 VALUE ZERO.
            05 GRAND-TOTAL-LAST-YTD   PIC S9(9)V99 VALUE ZERO.
            05 GRAND-TOTAL-CHANGE     PIC S9(9)V99 VALUE ZERO.
 
-       01  CALC-FIELDS.
+       01  CALC-FIELDS USAGE IS PACKED-DECIMAL.
            05 WS-CHANGE-AMOUNT       PIC S9(9)V99 VALUE ZERO.
            05 WS-CHANGE-PERCENT      PIC S9(5)V9(1) VALUE ZERO.
-
-       01  SALESREP-TABLE.
-           05  FILLER    PIC X(12) VALUE "10UNKNOWN   ".
-           05  FILLER    PIC X(12) VALUE "11TSMITH    ".
-           05  FILLER    PIC X(12) VALUE "12AJONES    ".
-           05  FILLER    PIC X(12) VALUE "14KBAKER    ".
-           05  FILLER    PIC X(12) VALUE "17STRACKER  ".
-           05  FILLER    PIC X(12) VALUE "21FFRANKLIN ".
-       01  SALESREP-TABLE-R REDEFINES SALESREP-TABLE.
-           05  SR-ENTRY OCCURS 6 TIMES
-                        INDEXED BY SR-INDEX.
-               10  SR-NUMBER   PIC X(2).
-               10  SR-NAME     PIC X(10).
 
        01  CURRENT-DATE-AND-TIME.
            05 CD-YEAR                PIC 9(4).
@@ -92,18 +80,18 @@
            05 FILLER                 PIC X(9).
 
        01  HEADING-LINE-1.
-           05 FILLER                 PIC X(7)  VALUE "DATE:  ".
-           05 HL1-MONTH              PIC 9(2).
-           05 FILLER                 PIC X     VALUE "/".
-           05 HL1-DAY                PIC 9(2).
-           05 FILLER                 PIC X     VALUE "/".
-           05 HL1-YEAR               PIC 9(4).
-           05 FILLER                 PIC X(16) VALUE SPACE.
-           05 FILLER               PIC X(26) VALUE "YEAR-TO-DATE SALES".
-           05 FILLER                 PIC X(6)  VALUE "REPORT".
-           05 FILLER                 PIC X(22) VALUE SPACE.
-           05 FILLER                 PIC X(7)  VALUE "PAGE:  ".
-           05 HL1-PAGE               PIC ZZZ9.
+           05 FILLER          PIC X(7)  VALUE "DATE:  ".
+           05 HL1-MONTH       PIC 9(2).
+           05 FILLER          PIC X(1)  VALUE "/".
+           05 HL1-DAY         PIC 9(2).
+           05 FILLER          PIC X(1)  VALUE "/".
+           05 HL1-YEAR        PIC 9(4).
+           05 FILLER          PIC X(26) VALUE SPACE.
+           05 FILLER          PIC X(20) VALUE "YEAR-TO-DATE SALES R".
+           05 FILLER          PIC X(31) VALUE "EPORT".
+           05 FILLER          PIC X(6)  VALUE "PAGE: ".
+           05 HL1-PAGE-NUMBER PIC ZZZ9.
+           05 FILLER          PIC X(26) VALUE SPACE.
 
        01  HEADING-LINE-2.
            05 FILLER                 PIC X(7)  VALUE "TIME:  ".
@@ -146,45 +134,50 @@
            05 FILLER PIC X(7)  VALUE "PERCENT".
 
        01  CUSTOMER-LINE.
-           05 CL-BRANCH              PIC 99.
-           05 FILLER                 PIC X VALUE SPACE.
-           05 CL-REP                 PIC 99.
-           05 FILLER                 PIC X VALUE SPACE.
-           05 CL-CUST                PIC 9(5).
-           05 FILLER                 PIC X(7) VALUE SPACE.
-           05 CL-NAME                PIC X(20).
-           05 FILLER                 PIC X(6) VALUE SPACE.
-           05 CL-THIS                PIC Z,ZZZ,ZZ9.99-.
+           05 FILLER                 PIC X(2) VALUE SPACE.
+           05 CL-BRANCH-NUMBER       PIC x(2).
            05 FILLER                 PIC X(4) VALUE SPACE.
-           05 CL-LAST                PIC Z,ZZZ,ZZ9.99-.
+           05 CL-CUSTOMER-NUMBER     PIC 9(5).
+           05 FILLER                 PIC X(2) VALUE SPACE.
+           05 CL-CUSTOMER-NAME       PIC X(20).
+           05 FILLER                 PIC X(3) VALUE SPACE.
+           05 CL-SALES-THIS-TYD      PIC Z,ZZZ,ZZ9.99-.
            05 FILLER                 PIC X(4) VALUE SPACE.
-           05 CL-CHANGE              PIC Z,ZZZ,ZZ9.99-.
+           05 CL-SALES-LAST-YTD      PIC Z,ZZZ,ZZ9.99-.
            05 FILLER                 PIC X(4) VALUE SPACE.
-           05 CL-PERCENT             PIC ZZZ9.9-.
+           05 CL-CHANGE-AMOUNT       PIC Z,ZZZ,ZZ9.99-.
+           05 FILLER                 PIC X(4) VALUE SPACE.
+           05 CL-CHANGE-PERCENT      PIC +++9.9.
+           05 CL-CHANGE-PERCENT-R    REDEFINES CL-CHANGE-PERCENT
+                                     PIC X(6).
 
        01  BRANCH-TOTAL-LINE.
            05 FILLER                 PIC X(8) VALUE SPACE.
            05 FILLER                 PIC X(13) VALUE "BRANCH TOTAL".
            05 FILLER                 PIC X(8) VALUE SPACE.
-           05 BTL-THIS               PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 BTL-LAST               PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 BTL-CHANGE             PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 BTL-PERCENT            PIC ZZZ9.9-.
+           05 BTL-SALES-THIS-YTD     PIC $$$,$$$9.99-.
+           05 FILLER                 PIC X(3) VALUE SPACE.
+           05 BTL-SALES-LAST-YTD     PIC $$$,$$$9.99-.
+           05 FILLER                 PIC X(3) VALUE SPACE.
+           05 BTL-CHANGE-AMOUNT      PIC $$$,$$$9.99-.
+           05 FILLER                 PIC X(2) VALUE SPACE.
+           05 BTL-CHANGE-PERCENT     PIC +++9.9.
+           05 BTL-CHANGE-PERCENT-R   REDEFINES BTL-CHANGE-PERCENT
+                                     PIC X(6).
 
        01  GRAND-TOTAL-LINE.
            05 FILLER                 PIC X(5) VALUE SPACE.
            05 FILLER                 PIC X(12) VALUE "GRAND TOTAL".
            05 FILLER                 PIC X(10) VALUE SPACE.
-           05 GT-THIS                PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 GT-LAST                PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 GT-CHANGE              PIC Z,ZZZ,ZZ9.99-.
-           05 FILLER                 PIC X(4) VALUE SPACE.
-           05 GT-PERCENT             PIC ZZZ9.9-.
+           05 GTL-SALES-THIS-YTD     PIC $,$$$,$$$9.99-.
+           05 FILLER                 PIC X(1) VALUE SPACE.
+           05 GTL-SALES-LAST-YTD     PIC $,$$$,$$$9.99-.
+           05 FILLER                 PIC X(1) VALUE SPACE.
+           05 GTL-CHANGE-AMOUNT      PIC $,$$$,$$$9.99-.
+           05 FILLER                 PIC X(2) VALUE SPACE.
+           05 GTL-CHANGE-PERCENT     PIC +++9.9.
+           05 GTL-CHANGE-PERCENT-R   REDEFINES GTL-CHANGE-PERCENT
+                                     PIC X(6).
 
        PROCEDURE DIVISION.
 
@@ -236,8 +229,14 @@
            IF CM-SALES-LAST-YTD NOT = ZERO
                COMPUTE WS-CHANGE-PERCENT =
                    (WS-CHANGE-AMOUNT / CM-SALES-LAST-YTD) * 100
+               IF WS-CHANGE-PERCENT > 9999.9 OR
+                  WS-CHANGE-PERCENT < -9999.9
+                   MOVE "OVRFLW" TO CL-CHANGE-PERCENT-R
+               ELSE
+                   MOVE WS-CHANGE-PERCENT TO CL-CHANGE-PERCENT
+               END-IF
            ELSE
-               MOVE 999.9 TO WS-CHANGE-PERCENT
+               MOVE "N/A   " TO CL-CHANGE-PERCENT-R
            END-IF
 
            MOVE CM-BRANCH-NUMBER   TO CL-BRANCH
@@ -291,14 +290,19 @@
            IF GRAND-TOTAL-LAST-YTD NOT = ZERO
                COMPUTE WS-CHANGE-PERCENT =
                    (GRAND-TOTAL-CHANGE / GRAND-TOTAL-LAST-YTD) * 100
+               IF WS-CHANGE-PERCENT > 9999.9 OR
+                  WS-CHANGE-PERCENT < -9999.9
+                   MOVE "OVRFLW" TO GTL-CHANGE-PERCENT-R
+               ELSE
+                   MOVE WS-CHANGE-PERCENT TO GTL-CHANGE-PERCENT
+               END-IF
            ELSE
-               MOVE 999.9 TO WS-CHANGE-PERCENT
+               MOVE "N/A   " TO GTL-CHANGE-PERCENT-R
            END-IF
 
-           MOVE GRAND-TOTAL-THIS-YTD TO GT-THIS
-           MOVE GRAND-TOTAL-LAST-YTD TO GT-LAST
-           MOVE GRAND-TOTAL-CHANGE   TO GT-CHANGE
-           MOVE WS-CHANGE-PERCENT    TO GT-PERCENT
+           MOVE GRAND-TOTAL-THIS-YTD TO GTL-SALES-THIS-YTD
+           MOVE GRAND-TOTAL-LAST-YTD TO GTL-SALES-LAST-YTD
+           MOVE GRAND-TOTAL-CHANGE   TO GTL-CHANGE-AMOUNT
 
            MOVE GRAND-TOTAL-LINE TO PRINT-AREA
            WRITE PRINT-AREA.
@@ -310,17 +314,24 @@
            IF BT-LAST-YTD NOT = ZERO
                COMPUTE WS-CHANGE-PERCENT =
                    (BT-CHANGE / BT-LAST-YTD) * 100
+               IF WS-CHANGE-PERCENT > 9999.9 OR
+                  WS-CHANGE-PERCENT < -9999.9
+                   MOVE "OVRFLW" TO BTL-CHANGE-PERCENT-R
+               ELSE
+                   MOVE WS-CHANGE-PERCENT TO BTL-CHANGE-PERCENT
+               END-IF
            ELSE
-               MOVE 999.9 TO WS-CHANGE-PERCENT
+               MOVE "N/A   " TO BTL-CHANGE-PERCENT-R
            END-IF
 
-           MOVE BT-THIS-YTD TO BTL-THIS
-           MOVE BT-LAST-YTD TO BTL-LAST
-           MOVE BT-CHANGE   TO BTL-CHANGE
-           MOVE WS-CHANGE-PERCENT TO BTL-PERCENT
+           MOVE BT-THIS-YTD  TO BTL-SALES-THIS-YTD
+           MOVE BT-LAST-YTD  TO BTL-SALES-LAST-YTD
+           MOVE BT-CHANGE    TO BTL-CHANGE-AMOUNT
 
            MOVE BRANCH-TOTAL-LINE TO PRINT-AREA
            WRITE PRINT-AREA.
 
        410-CLEAR-BRANCH-TOTALS.
-           INITIALIZE BRANCH-TOTALS.
+           MOVE ZERO TO BT-THIS-YTD
+           MOVE ZERO TO BT-LAST-YTD
+           MOVE ZERO TO BT-CHANGE.
