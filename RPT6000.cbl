@@ -36,7 +36,7 @@
            05 CM-SALES-THIS-YTD      PIC S9(5)V99.
            05 CM-SALES-LAST-YTD      PIC S9(5)V99.
            05 FILLER                 PIC X(87).
-        
+
        01  WS-SALESREP-RECORD.
            05 SM-SALESREP-NUMBER     PIC 9(2).
            05 SM-SALESREP-NAME       PIC X(10).
@@ -51,7 +51,13 @@
 
        WORKING-STORAGE SECTION.
 
-       01  CUSTMAST-EOF-SWITCH       PIC X VALUE "N".
+       01  SWITCHES.
+           05 SALESREP-EOF-SWITCH    PIC X VALUE "N".
+              88 SALESREP-EOF        VALUE "Y".
+           05 CUSTMAST-EOF-SWITCH    PIC X VALUE "N".
+              88 CUSTMAST-EOF        VALUE "Y".
+           05 FIRST-RECORD-SWITCH    PIC X VALUE "Y".
+              88 FIRST-RECORD        VALUE "Y" FALSE "N".
 
        01  CONTROL-FIELDS.
            05 WS-CURRENT-BRANCH      PIC 99 VALUE ZERO.
