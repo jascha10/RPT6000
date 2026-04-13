@@ -242,35 +242,55 @@
            MOVE CD-HOURS   TO HL2-HOURS.
            MOVE CD-MINUTES TO HL2-MINUTES.
 
-       210-READ-CUSTOMER-RECORD.
-           READ I_CUSTMAST
-               AT END
-                   MOVE "Y" TO CUSTMAST-EOF-SWITCH
+       200-LOAD-SALESREP-TABLE.
+
+           PERFORM
+              WITH TEST AFTER
+              VARYING SRT-INDEX FROM 1 BY 1
+              UNTIL SALESREP-EOF
+                 OR SRT-INDEX = 100
+                 PERFORM 210-READ-SALESREP-TABLE-RECORD
+                 IF NOT SALESREP-EOF
+                    MOVE SM-SALESREP-NUMBER
+                        TO SALESREP-NUMBER (SRT-INDEX)
+                    MOVE SM-SALESREP-NAME
+                        TO SALESREP-NAME (SRT-INDEX)
+                 END-IF
+           END-PERFORM.
+
+
+        210-READ-SALESREP-TABLE-RECORD.
+
+           READ INPUT-SALESREP
+              AT END
+                 SET SALESREP-EOF TO TRUE
            END-READ.
 
-       
 
-
-       300-PRINT-GRAND-TOTALS.
-           IF GRAND-TOTAL-LAST-YTD NOT = ZERO
-               COMPUTE WS-CHANGE-PERCENT =
-                   (GRAND-TOTAL-CHANGE / GRAND-TOTAL-LAST-YTD) * 100
-               IF WS-CHANGE-PERCENT > 9999.9 OR
-                  WS-CHANGE-PERCENT < -9999.9
-                   MOVE "OVRFLW" TO GTL-CHANGE-PERCENT-R
-               ELSE
-                   MOVE WS-CHANGE-PERCENT TO GTL-CHANGE-PERCENT
-               END-IF
-           ELSE
-               MOVE "N/A   " TO GTL-CHANGE-PERCENT-R
-           END-IF
-
-           MOVE GRAND-TOTAL-THIS-YTD TO GTL-SALES-THIS-YTD
-           MOVE GRAND-TOTAL-LAST-YTD TO GTL-SALES-LAST-YTD
-           MOVE GRAND-TOTAL-CHANGE   TO GTL-CHANGE-AMOUNT
-
-           MOVE GRAND-TOTAL-LINE TO PRINT-AREA
-           WRITE PRINT-AREA.
+       300-PREPARE-SALES-LINES.
+           PERFORM 310-READ-CUSTOMER-RECORD.
+           EVALUATE TRUE
+               WHEN CUSTMAST-EOF
+                   PERFORM 355-PRINT-SALESREP-LINE
+                   PERFORM 360-PRINT-BRANCH-LINE
+               WHEN FIRST-RECORD
+                   PERFORM 320-PRINT-CUSTOMER-LINE
+                   MOVE "N" TO FIRST-RECORD-SWITCH
+                   MOVE CM-SALESREP-NUMBER TO OLD-SALESREP-NUMBER
+                   MOVE CM-BRANCH-NUMBER   TO OLD-BRANCH-NUMBER
+               WHEN CM-BRANCH-NUMBER > OLD-BRANCH-NUMBER
+                   PERFORM 355-PRINT-SALESREP-LINE
+                   PERFORM 360-PRINT-BRANCH-LINE
+                   PERFORM 320-PRINT-CUSTOMER-LINE
+                   MOVE CM-SALESREP-NUMBER TO OLD-SALESREP-NUMBER
+                   MOVE CM-BRANCH-NUMBER   TO OLD-BRANCH-NUMBER
+               WHEN CM-SALESREP-NUMBER > OLD-SALESREP-NUMBER
+                   PERFORM 355-PRINT-SALESREP-LINE
+                   PERFORM 320-PRINT-CUSTOMER-LINE
+                   MOVE CM-SALESREP-NUMBER TO OLD-SALESREP-NUMBER
+               WHEN OTHER
+                   PERFORM 320-PRINT-CUSTOMER-LINE
+           END-EVALUATE.
 
        320-PRINT-CUSTOMER-LINE.
 
